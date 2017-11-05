@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>后台管理系统</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/ionicons.min.css">
+<!-- daterange picker -->
+<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/daterangepicker.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/dataTables.bootstrap.min.css">
+<!-- jvectormap -->
+<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/jquery-jvectormap.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/AdminLTE.min.css">
+<!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/all.css">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/_all-skins.min.css">
+<!-- Pace style -->
+<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/pace.min.css">
+<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/admin.css">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="/Tpl/Admin/template/AdminLTE/Public/js/html5shiv.min.js"></script>
+  <script src="/Tpl/Admin/template/AdminLTE/Public/js/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+<body class="skin-blue sidebar-mini">
+<div class="wrapper">
+  <header class="main-header"> 
+    
+    <!-- Logo --> 
+    <a href="__APP__/TIFAWEB_DSWJCMS.html" class="logo goindex"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><b>后台</b></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><b>后台管理系统</b></span> </a> 
+    
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top"> 
+      <!-- Sidebar toggle button--> 
+      <a href="javascript:void(0)" class="sidebar-toggle" data-toggle="push-menu" role="button"> <span class="sr-only">切换导航</span> </a> 
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+          <if condition="$Think.session.admin_portraittype eq 1">
+          <img src="/Tpl/Admin/template/AdminLTE/Public/{$Think.session.admin_portrait}" class="user-image" alt="头像"> 
+          <elseif condition="$Think.session.admin_portrait neq '' and $Think.session.admin_portraittype neq 1"/>
+          <img src="/Public/uploadify/uploads/adminportrait/{$Think.session.admin_portrait}" class="user-image" alt="头像">
+          <else/>
+          <img src="/Tpl/Admin/template/AdminLTE/Public/img/avatar.png" class="user-image" alt="头像"> 
+          </if>
+          
+          
+          
+          
+          <span class="hidden-xs">{$Think.session.admin_name}</span> </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header"> 
+              <if condition="$Think.session.admin_portraittype eq 1">
+              <img src="/Tpl/Admin/template/AdminLTE/Public/{$Think.session.admin_portrait}" class="img-circle" alt="头像">
+              <elseif condition="$Think.session.admin_portrait neq '' and $Think.session.admin_portraittype neq 1"/>
+              <img src="/Public/uploadify/uploads/adminportrait/{$Think.session.admin_portrait}" class="img-circle" alt="头像">
+              <else/>
+              <img src="/Tpl/Admin/template/AdminLTE/Public/img/avatar.png" class="img-circle" alt="头像">
+              </if>
+              
+                <p> {$Think.session.admin_name} </p>
+              </li>
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+              	<div class="pull-left"><a href="#adminLogo" data-toggle="modal" class="btn btn-default btn-flat">更换头像</a></div>
+                <div class="pull-right"> <a href="__APP__/TIFAWEB_DSWJCMS/Logo/loginout" class="btn btn-default btn-flat">退出</a> </div>
+              </li>
+            </ul>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <li> <a href="#" data-toggle="control-sidebar"><i class="fa fa-pie-chart"></i></a> </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar" id="leftNavigation"> 
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar"> 
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image"> 
+        <if condition="$Think.session.admin_portraittype eq 1">
+          <img src="/Tpl/Admin/template/AdminLTE/Public/{$Think.session.admin_portrait}" class="img-circle" alt="头像">
+          <elseif condition="$Think.session.admin_portrait neq '' and $Think.session.admin_portraittype neq 1"/>
+          <img src="/Public/uploadify/uploads/adminportrait/{$Think.session.admin_portrait}" class="img-circle" alt="头像">
+          <else/>
+          <img src="/Tpl/Admin/template/AdminLTE/Public/img/avatar.png" class="img-circle" alt="头像">
+          </if>
+        
+         </div>
+        <div class="pull-left info">
+          <p>{$Think.session.admin_name}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> 在线</a> </div>
+      </div>
+      
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">导航</li>
+        <li class="active"> <a href="__APP__/TIFAWEB_DSWJCMS.html" class="goindex"> <i class="fa fa-home"></i> <span>首页</span> <span class="pull-right-container"> </span> </a> </li>
+        <li class="treeview"> <a href="__APP__/TIFAWEB_DSWJCMS/Index/system.html"> <i class="fa fa-gear"></i> <span>系统配置</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/Index/system.html"><i class="fa fa-circle-o"></i> 网站配置</a></li>
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/Index/email.html"><i class="fa fa-circle-o"></i> 邮箱设置</a></li>
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/Index/operation.html"><i class="fa fa-circle-o"></i> 管理员操作记录</a></li>
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/Index/userrecord.html"><i class="fa fa-circle-o"></i> 用户操作记录</a></li>
+            <li><a href="__ROOT__/TIFAWEB_DSWJCMS/Index/colour.html"><i class="fa fa-circle-o"></i> 前台模板</a></li>
+            <li><a href="__ROOT__/TIFAWEB_DSWJCMS/Index/admcolour.html"><i class="fa fa-circle-o"></i> 后台模板</a></li>
+          </ul>
+        </li>
+        <li class="treeview"> <a href="javascript:void(0)"> <i class="fa fa-wrench"></i> <span>基础配置</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/Basis/shuffling.html"><i class="fa fa-circle-o"></i> 轮播图片</a></li>
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/Basis/links.html"><i class="fa fa-circle-o"></i> 友情链接</a></li>
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/Basis/backup.html"><i class="fa fa-circle-o"></i> 数据库备份</a></li>
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/Basis/optimization.html"><i class="fa fa-circle-o"></i> 数据库优化</a></li>
+          </ul>
+        </li>
+        <li class="treeview"> <a href="javascript:void(0)"> <i class="fa fa-newspaper-o"></i> <span>文章管理</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/Site.html"><i class="fa fa-circle-o"></i> 栏目管理</a></li>
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/Site/articleList.html"><i class="fa fa-circle-o"></i> 文章管理</a></li>
+          </ul>
+        </li>
+        <li class="treeview"> <a href="javascript:void(0)"> <i class="fa fa-users"></i> <span>用户管理</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/User/index"><i class="fa fa-circle-o"></i> 普通用户管理</a></li>
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/User/manage.html"><i class="fa fa-circle-o"></i> 管理员管理</a></li>
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/User/userGroups.html"><i class="fa fa-circle-o"></i> 管理组管理</a></li>
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/User/competence.html"><i class="fa fa-circle-o"></i> 权限管理</a></li>
+          </ul>
+        </li>
+        <li class="treeview"> <a href="javascript:void(0)"> <i class="fa fa-code-fork"></i> <span>联动管理</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="__APP__/TIFAWEB_DSWJCMS/Ganged/index/1.html"><i class="fa fa-circle-o"></i> 后台栏目分组</a></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+    <!-- /.sidebar --> 
+  </aside>
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    
+<!--头 end-->

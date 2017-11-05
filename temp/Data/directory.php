@@ -1,0 +1,1 @@
+<?php	return array ( 'num' => 1, 0 => array ( 0 => '默认模板', 1 => '迎接2013全新版面迎接2013全新版面', 2 => 'dswjcms SHOP猫', 3 => 'Default', ), );?>

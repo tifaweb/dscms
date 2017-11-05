@@ -1,0 +1,141 @@
+<include file="Index:header" />
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> 管理员管理 </h1>
+      <ol class="breadcrumb">
+        <li><a href="__APP__/TIFAWEB_DSWJCMS.html" class="goindex"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li>用户管理</li>
+        <li class="active">管理员管理</li>
+      </ol>
+    </section>
+<!--主体-->
+    <!-- Main content -->
+  <section class="content">
+    <div class="box">
+    <div class="box-header">
+              
+              <div class="box-tools">
+                <a href="#" data-target="#aDdit" data-toggle="modal">添加管理员</a>
+              </div>
+            </div>
+    <div class="box-body">
+    <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>用户名</th>
+                <th>用户ID</th>
+                <th>email</th>
+                <th>开通时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+			 <volist name="list" id="vo">
+              <tr>
+                <td>{$vo.username}</td>
+                <td>{$vo.id}</td>
+                <td>
+                   {$vo.email} 
+                </td>
+                <if condition="$vo.time neq 0 ">
+                <td>{$vo.time|date="Y-m-d",###}</td>
+                <else/>
+                <td>无</td>
+                </if>
+                <td>
+                  <a href="#edit" data-toggle="modal" class="fa fa-pencil text-light-blue" title="编辑" onclick='edit({$vo.id})'></a>&nbsp;&nbsp;
+                  <a href="#" class="fa fa-trash text-red" title="删除" onclick="if(confirm('是否要删除？'))window.location.href='__APP__/TIFAWEB_DSWJCMS/User/exitman?id={$vo.id}'"></a>
+                </td>
+              </tr>
+            </volist>
+            </tbody>
+          </table>
+     </div>
+    </div>
+  </section>
+<include file="Index:footer" />
+<!--添加管理员 开始-->
+<div class="modal fade" id="aDdit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">添加管理员</h4>
+      </div>
+     <form method="post"  action='__APP__/TIFAWEB_DSWJCMS/User/tfAdd'>
+    <input name="q" id="q" type="hidden" value="am" />
+	<input name="u" type="hidden" value="__APP__/TIFAWEB_DSWJCMS/User/manage.html" />
+      <div class="modal-body">
+		<table class="table">
+        	<tbody>
+              <tr>
+                <td>
+                       管理员名称：
+                </td>
+                <td>
+                  <input name="username" type="text" class="form-control" placeholder="请输入用户名...">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                       email：
+                </td>
+                <td>
+                  <input name="email" type="text" class="form-control" placeholder="请输入eamil...">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                       密码：
+                </td>
+                <td>
+                  <input name="password" type="password" class="form-control" placeholder="请输入密码...">
+                </td>
+              </tr>                      
+            </tbody>
+       	</table>
+        	<div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary" >确定</button>
+            
+          </div>
+      </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--添加管理员 结束-->
+<!--修改 开始-->
+<div class="modal fade" id="edit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">修改</h4>
+      </div>
+     <form method="post"  action='__APP__/TIFAWEB_DSWJCMS/User/tfUpda'>
+    <input name="q" type="hidden" value="am" />
+    <input name="u" type="hidden" value="__APP__/TIFAWEB_DSWJCMS/User/manage.html" />
+    <input name="n" type="hidden" value="修改" />
+      <div class="modal-body">
+		<div id='edits'></div>
+        	<div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary" >确定</button>
+            
+          </div>
+      </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--修改 结束-->
+<script>
+{$endjs}
+</script>

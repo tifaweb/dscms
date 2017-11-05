@@ -1,0 +1,85 @@
+<include file="header" />
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> 邮箱设置 </h1>
+      <ol class="breadcrumb">
+        <li><a href="__APP__/TIFAWEB_DSWJCMS.html" class="goindex"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li>系统配置</li>
+        <li class="active">邮箱设置</li>
+      </ol>
+    </section>
+<!--主体-->
+    <!-- Main content -->
+  <section class="content">
+    <form method="post"  action='__APP__/TIFAWEB_DSWJCMS/Index/email_send'>
+    <div class="box">
+    <div class="box-body">
+    <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>参数说明</th>
+                <th>参数值</th>
+              </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                <td>
+                       SMTP服务器:
+                </td>
+                <td>
+				  <input name="smtp" type="text" class="form-control" value="{$vo.0.smtp}" />
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                <td>
+                       SMTP服务器是否需要验证:
+                </td>
+                <td class="form-group">
+                  <label><input type="radio" name="validation" class="minimal" value="1" checked>是</label>
+                  <label><input type="radio" name="validation" class="minimal" value="0">否</label>
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                <td>
+                       邮箱地址:
+                </td>
+                <td>
+				  <input name="send_email" class="form-control" type="text" value="{$vo.0.send_email}" />
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                <td>
+                       邮箱密码:
+                </td>
+                <td>
+				  <input name="password" class="form-control" type="password" value="{$vo.0.password}" />
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                <td>
+                       发件人:
+                </td>
+                <td>
+				  <input name="addresser" class="form-control" type="text" value="{$vo.0.addresser}" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    </div>
+    <div class="row">
+         <button class="btn btn-primary pull-right" style="margin-right: 15px;"  type="submit">确认修改</button>
+          <input name="id" type="hidden" value="1" />
+        </div>
+    </form>
+  </section>
+<include file="footer" />

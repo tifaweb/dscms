@@ -1,0 +1,1 @@
+<?php	return array ( 'num' => 1, 0 => array ( 0 => 'AdminLTE', 1 => 'AdminLTE后台模板', 2 => 'dswjcms purl', 3 => 'AdminLTE', ), );?>

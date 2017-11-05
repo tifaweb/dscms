@@ -1,0 +1,188 @@
+<include file="Index:header" />
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> {$pname} </h1>
+      <ol class="breadcrumb">
+        <li><a href="__APP__/TIFAWEB_DSWJCMS.html" class="goindex"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li>联动管理</li>
+        <li class="active">{$pname}</li>
+      </ol>
+    </section>
+<!--主体-->
+    <!-- Main content -->
+  <section class="content">
+    <div class="box">
+    <div class="box-header">
+              
+              <div class="box-tools">
+                <a href="#" data-target="#audit" data-toggle="modal">添加{$pname}</a>
+              </div>
+            </div>
+    <div class="box-body">
+    <table class="table table-bordered"  id="example1">
+           <thead>
+              <tr>
+              	<th>联动值</th>
+                <th>联动名</th>
+                <th>状态</th>
+                <th style="width:100px;">排序</th>
+                <th>操作</th>
+              </tr>
+            <thead>
+            <tbody>
+            <volist name="list" id="vo">
+                <tr>
+                <td>
+                      {$vo.value}
+                </td>
+                <td>
+                       {$vo.name}
+                </td>
+                <td class="form-inline">
+                <if condition="$vo.state eq 0">
+                显示
+               <else />
+                隐藏
+              </if>
+                </td>
+                <td>
+                   <input name="order" type="text" value="{$vo.order}" class="form-control" onblur='var order=$(this).val();$.post("__APP__/TIFAWEB_DSWJCMS/Ganged/savegan", { id:{$vo.id},order:order} );'/>
+                </td>     
+                <td>
+                    <a href="#" data-target="#edit" data-toggle="modal" class="fa fa-pencil text-light-blue" title="编辑" onclick='edit({$vo.id})'></a>&nbsp;&nbsp;
+                    <a href="#" class="fa fa-trash text-red" title="删除" onclick="if(confirm('是否要删除？'))window.location.href='__APP__/TIFAWEB_DSWJCMS/Ganged/exitgan/{$vo.id}'"></a>
+                </td>
+              </tr>
+            </volist>
+            </tbody>
+          </table>
+     </div>
+    </div>
+  </section>
+<include file="Index:footer" />
+<!--添加{$pname} 开始-->
+<div class="modal fade" id="audit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">添加{$pname}</h4>
+      </div>
+     <form method="post"  action='__APP__/TIFAWEB_DSWJCMS/Ganged/tfAdd'>
+    <input name="q" type="hidden" value="unite" />
+    <input name="u" type="hidden" value="__APP__/TIFAWEB_DSWJCMS/Ganged/index/{$Think.get.id}.html" />
+    <input name="n" type="hidden" value="{$pname}添加" />
+    <input name="pid" type="hidden" value="{$Think.get.id}" />
+      <div class="modal-body">
+		<table class="table">
+        	<tbody>
+          <tr>
+            <td>
+                   联动名：
+            </td>
+            <td>
+              <input name="name" type="text" class="form-control" placeholder="请输入联动名...">
+            </td>
+          </tr>
+          <tr>
+            <td>
+                   联动值：
+            </td>
+            <td>
+              <input name="value" type="text" class="form-control" placeholder="请输入联动值...">
+            </td>
+          </tr>
+          <tr>
+            <td>
+                   状态：
+            </td>
+            <td class="form-group">
+                <label><input class="minimal" type="radio" name="state" value="0" checked/> 显示</label>
+                <label><input class="minimal" type="radio" name="state" value="1" /> 隐藏</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+                   排序：
+            </td>
+            <td>
+              <input name="order" type="text" class="form-control" value="5">
+            </td>
+          </tr>
+        </tbody> 
+       	</table>
+        	<div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary" >确定</button>
+            
+          </div>
+      </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--添加{$pname} 结束-->
+<!--编辑{$pname} 开始-->
+<div class="modal fade" id="edit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">编辑{$pname}</h4>
+      </div>
+    <form method="post"  action='__APP__/TIFAWEB_DSWJCMS/Ganged/tfUpda'>
+    <input name="q" type="hidden" value="unite" />
+    <input name="u" type="hidden" value="__APP__/TIFAWEB_DSWJCMS/Ganged/index/{$Think.get.id}.html" />
+    <input name="n" type="hidden" value="{$pname}更新" />
+      <div class="modal-body">
+		<div id='edits'></div>
+        	<div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary" >确定</button>
+            
+          </div>
+      </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--编辑{$pname} 结束-->
+<script>
+function edit(id){
+		$("#edits").load("__APP__/TIFAWEB_DSWJCMS/Ganged/editajax", {id:id});
+}
+$(function () {
+    $('#example1').DataTable({
+		language: {  
+		  "sProcessing": "处理中...",  
+		  "sLengthMenu": "显示 _MENU_ 项结果",  
+		  "sZeroRecords": "没有匹配结果",  
+		  "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",  
+		  "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",  
+		  "sInfoFiltered": "(由 _MAX_ 项结果过滤)",  
+		  "sInfoPostFix": "",  
+		  "sSearch": "搜索:",  
+		  "sUrl": "",  
+		  "sEmptyTable": "表中数据为空",  
+		  "sLoadingRecords": "载入中...",  
+		  "sInfoThousands": ",",  
+		  "oPaginate": {  
+			  "sFirst": "首页",  
+			  "sPrevious": "上页",  
+			  "sNext": "下页",  
+			  "sLast": "末页"  
+		  },  
+		  "oAria": {  
+			  "sSortAscending": ": 以升序排列此列",  
+			  "sSortDescending": ": 以降序排列此列"  
+		  }  
+	  }  
+	})
+})
+</script>

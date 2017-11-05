@@ -1,0 +1,102 @@
+<include file="header" />
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> 用户操作记录 </h1>
+      <ol class="breadcrumb">
+        <li><a href="__APP__/TIFAWEB_DSWJCMS.html" class="goindex"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li>系统配置</li>
+        <li class="active">用户操作记录</li>
+      </ol>
+    </section>
+<!--主体-->
+    <!-- Main content -->
+  <section class="content">
+    <div class="box">
+    <div class="box-header">
+              
+              <div class="box-tools">
+    			<a href="#export" data-toggle="modal">导出</a>
+              </div>
+            </div>
+    <div class="box-body">
+    <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>操作者</th>
+                <th>操作说明</th>
+                <th>操作时间</th>
+                <th>操作IP</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+                <volist name="list" id="vo">
+                <tr>
+                <td>
+                       {$vo.id}
+                </td>
+                <td>
+                       {$vo.username}
+                </td>
+                <td>
+                       {$vo.actionname}
+                </td>
+                <td>
+                       {$vo.time|date="Y-m-d H:i:s",###}
+                </td>
+                <td>
+                        {$vo.ip}
+                </td>
+              </tr>
+				</volist>
+            </tbody>
+          </table>
+          <div class="box-footer">
+          <ul class="pagination pagination-sm no-margin pull-right">{$page}</ul>
+          </div>
+     </div>
+    </div>
+  </section>
+<include file="footer" />
+<!--导出 开始-->
+<div class="modal fade" id="export">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">导出</h4>
+      </div>
+      <form method="post" action="__APP__/TIFAWEB_DSWJCMS/Index/userExport">
+      <div class="modal-body">
+    <div class="callout callout-info">
+        <p>每次导出条数最多5000条，如果数据总合以超5000条请输入上一份导出文件的最大ID值</p>
+    </div>
+		<table class="table">
+        <tbody>
+          <tr>
+          <td>开始ID：</td>
+          <td>
+             	<input name="fid" type="text" class="form-control"  value=''/>
+          </td>
+          
+          </tr>
+          
+        </tbody>
+       	</table>
+        	<div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary" >确定</button>
+            
+          </div>
+      </form>
+      </div>
+      
+      
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--导出 结束-->

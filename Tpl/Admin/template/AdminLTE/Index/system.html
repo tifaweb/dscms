@@ -1,0 +1,198 @@
+<include file="header" />
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> 网站配置 </h1>
+      <ol class="breadcrumb">
+        <li><a href="__APP__/TIFAWEB_DSWJCMS.html" class="goindex"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li>系统配置</li>
+        <li class="active">系统设置</li>
+      </ol>
+    </section>
+<!--主体-->
+    <!-- Main content -->
+  <section class="content">
+    <form method="post"  action='__APP__/TIFAWEB_DSWJCMS/Index/savesy' enctype="multipart/form-data">
+    <div class="box">
+    <div class="box-body">
+    <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>参数说明</th>
+                    <th>参数值</th>
+                    <th>变量名</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <volist name="list" id="vo">
+                    <tr>
+                    <td>
+                           {$vo.state}：
+                    </td>
+                    <td>
+                      <switch name="vo.type">
+                        <case value="1"><input class="form-control" type="text" name="value[]" placeholder="{$vo.prompt}..." value="{$vo.value}"></case>
+                        <case value="2"><textarea class="form-control" name="value[]" placeholder="{$vo.prompt}..." >{$vo.value}</textarea></case>
+                        <case value="3">
+                        <div class="imgupload"  id="fileList">
+                        <if condition="$vo.value neq ''">
+                        <input name="value[]" type="hidden" value="{$vo.value}" />
+                        <img src="__PUBLIC__/uploadify/uploads/logo/{$vo.value}"/>
+                        <else/>
+                        <input name="value[]" type="hidden" value="" />
+                        <span class="fa fa-plus"></span>
+                        </if>
+                        </div>
+                        <input name="{$key}" type="file" id="fileElem" multiple accept="image/*"  onchange="handleFiles(this)" class="hide">
+                        
+                        </case>
+                        
+                        <default />
+                      </switch>
+    
+                    </td>
+                    <td>
+                      <code>{$vo.name}</code>
+                    </td>
+                    <td>
+                        <a href="__APP__/TIFAWEB_DSWJCMS/Index/editsys/{$vo.id}.html" class="fa fa-pencil text-light-blue" title="编辑" style="margin-right: 5px;"></a>
+                        <a href="#" class="fa fa-trash text-red" title="删除" onclick="if(confirm('是否要删除？'))window.location.href='__APP__/TIFAWEB_DSWJCMS/Index/delesy/id/{$vo.id}'"></a>
+                    </td>
+                  </tr>
+                  <input name="id[]" type="hidden" value="{$vo.id}" />
+    </volist>
+                </tbody>
+              </table>
+        
+              
+    </div>
+    </div>
+    <div class="row">
+         <button class="btn btn-primary pull-right" style="margin-right: 15px;"  type="submit">
+                      确认修改
+                  </button>
+                    <a style="margin-right: 5px;" data-toggle="modal" data-target="#aDdit" class="btn btn-info pull-right">添加系统变量</a>         
+        </div>
+    </form>
+  </section>
+
+<!--添加系统变量 开始-->
+<div class="modal fade" id="aDdit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">添加系统变量</h4>
+      </div>
+      <form method="post"  action='__APP__/TIFAWEB_DSWJCMS/Index/addsy'>
+      <div class="modal-body">
+		
+        <table class="table">
+                        <tbody>
+                          <tr>
+                            <td>
+                                   参数说明：
+                            </td>
+                            <td>
+                              <input name="state" type="text"  class="form-control" placeholder="请输入参数说明...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                                   输入提示：
+                            </td>
+                            <td>
+                              <input name="prompt" type="text" class="form-control" placeholder="请输入输入提示...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                                   参数值：
+                            </td>
+                            <td>
+                              <input name="value" type="text" class="form-control" placeholder="请输入参数值...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                                   变量名：
+                            </td>
+                            <td>
+                              <input name="name" type="text" class="form-control" placeholder="请输入变量名以sys_开头...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                                   表单类型：
+                            </td>
+                            <td class="form-group">
+                              <label><input type="radio" name="type" class="minimal" value="1" checked>文本域</label>
+                              <label><input type="radio" name="type" class="minimal" value="2">文本区域</label>
+                              <label><input type="radio" name="type" class="minimal" value="3">文件域</label>
+                            </td>
+                          </tr>
+                        </tbody>
+                    
+        </table>
+        	<div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary" >确认添加</button>
+            
+          </div>
+      </form>
+      </div>
+      
+      
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--添加系统变量 结束-->
+<include file="footer" />
+<script>
+//图片上传处理
+window.URL = window.URL || window.webkitURL;
+    var fileElem = document.getElementById("fileElem"),
+    fileList = document.getElementById("fileList");
+	fileList.addEventListener('click',function(){
+		fileElem.click();
+	},false);
+    function handleFiles(obj) {
+        var files = obj.files,
+        img = new Image();
+        if(window.URL){
+            //File API
+            //alert(files[0].name + "," + files[0].size + " bytes");
+            img.src = window.URL.createObjectURL(files[0]); //创建一个object URL，并不是你的本地路径
+            img.onload = function(e) {
+                window.URL.revokeObjectURL(this.src); //图片加载后，释放object URL
+            }
+			
+            fileList.innerHTML='<img src="'+img.src+'"/>';
+        }else if(window.FileReader){
+            //opera不支持createObjectURL/revokeObjectURL方法。我们用FileReader对象来处理
+            var reader = new FileReader();
+            reader.readAsDataURL(files[0]);
+            reader.onload = function(e){
+               // alert(files[0].name + "," +e.total + " bytes");
+                img.src = this.result;
+                img.width = 200;
+                 fileList.innerHTML='<img src="'+img.src+'"/>';
+            }
+        }else{
+            //ie
+            obj.select();
+            obj.blur();
+            var nfile = document.selection.createRange().text;
+            document.selection.empty();
+            img.src = nfile;
+            img.width = 200;
+            img.onload=function(){
+                //alert(nfile+","+img.fileSize + " bytes");
+            }
+            fileList.innerHTML='<img src="'+img.src+'"/>';
+        }
+    }
+</script>

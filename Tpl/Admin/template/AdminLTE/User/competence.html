@@ -1,0 +1,179 @@
+<include file="Index:header" />
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> 权限管理 </h1>
+      <ol class="breadcrumb">
+        <li><a href="__APP__/TIFAWEB_DSWJCMS.html" class="goindex"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li>用户管理</li>
+        <li class="active">权限管理</li>
+      </ol>
+    </section>
+<!--主体-->
+    <!-- Main content -->
+  <section class="content">
+    <div class="box">
+    <div class="box-header">
+              
+              <div class="box-tools">
+                <a href="#" data-target="#aDdit" data-toggle="modal">添加权限</a>
+              </div>
+            </div>
+    <div class="box-body">
+    <div class="callout callout-info">
+        <p>权限配置不建议非技术人员修改</p>
+    </div>
+    <table class="table table-bordered"  id="example1">
+           <thead>
+              <tr>
+                <th>权限ID</th>
+                <th>授权名称</th>
+                <th>分组</th>
+                <th>描述</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+			 <volist name="list" id="vo">
+              <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.name}</td>
+                <td>{$unts[$vo['fid']]}</td>
+                <td>
+                   {$vo.condition} 
+                </td>
+                <td>
+                  <a data-target="#edit" data-toggle="modal" href="#" class="fa fa-pencil text-light-blue" title="编辑" onclick='edit({$vo.id})'></a>&nbsp;&nbsp;
+                    <a href="#" class="fa fa-trash text-red" title="删除" onclick="if(confirm('是否要删除？'))window.location.href='__APP__/TIFAWEB_DSWJCMS/User/exitcom?id={$vo.id}'"></a>
+                </td>
+              </tr>
+            </volist>
+            </tbody>
+          </table>
+     </div>
+    </div>
+  </section>
+<include file="Index:footer" />
+<!--添加权限规则 开始-->
+<div class="modal fade" id="aDdit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">添加权限规则</h4>
+      </div>
+     <form method="post"  action='__APP__/TIFAWEB_DSWJCMS/User/tfAdd'>
+    <input name="q" id="q" type="hidden" value="ar" />
+	<input name="u" type="hidden" value="__APP__/TIFAWEB_DSWJCMS/User/competence.html" />
+      <div class="modal-body">
+		<table class="table">
+        	<tbody>
+                      <tr>
+                        <td>
+                               授权名称：
+                        </td>
+                        <td>
+                          <input name="name" type="text" class="form-control" placeholder="请输入权限名称...">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                               分组：
+                        </td>
+                        <td>
+                          	<select name="fid" class="form-control">
+                            <volist name="unt" id="vo">
+                              <option value="{$vo.value}">{$vo.name}</option>
+                            </volist>
+                            </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                               控制器：
+                        </td>
+                        <td>
+                          <input name="condition" type="text" class="form-control" placeholder="Group-Controller-action">
+                        </td>
+                      </tr>                      
+                    </tbody>
+       	</table>
+        	<div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary" >确定</button>
+            
+          </div>
+      </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--添加权限规则 结束-->
+<!--编辑 开始-->
+<div class="modal fade" id="edit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">编辑</h4>
+      </div>
+     <form method="post"  action='__APP__/TIFAWEB_DSWJCMS/User/tfUpda'>
+    <input name="q" type="hidden" value="ar" />
+    <input name="u" type="hidden" value="__APP__/TIFAWEB_DSWJCMS/User/competence.html" />
+    <input name="n" type="hidden" value="更新" />
+      <div class="modal-body">
+		<div id='edits'></div>
+        	<div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary" >确定</button>
+            
+          </div>
+      </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!--编辑 结束-->
+<script>
+function edit(id){
+	$("#edits").load("__APP__/TIFAWEB_DSWJCMS/User/editajax", {id:id},function(){
+		$('#edits input').removeClass('span6');
+		$('#edits input').addClass('form-control');
+		$('#edits select').addClass('form-control');
+	});
+	
+}
+$(function () {
+    $('#example1').DataTable({
+		language: {  
+		  "sProcessing": "处理中...",  
+		  "sLengthMenu": "显示 _MENU_ 项结果",  
+		  "sZeroRecords": "没有匹配结果",  
+		  "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",  
+		  "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",  
+		  "sInfoFiltered": "(由 _MAX_ 项结果过滤)",  
+		  "sInfoPostFix": "",  
+		  "sSearch": "搜索:",  
+		  "sUrl": "",  
+		  "sEmptyTable": "表中数据为空",  
+		  "sLoadingRecords": "载入中...",  
+		  "sInfoThousands": ",",  
+		  "oPaginate": {  
+			  "sFirst": "首页",  
+			  "sPrevious": "上页",  
+			  "sNext": "下页",  
+			  "sLast": "末页"  
+		  },  
+		  "oAria": {  
+			  "sSortAscending": ": 以升序排列此列",  
+			  "sSortDescending": ": 以降序排列此列"  
+		  }  
+	  }  
+	})
+})
+</script>

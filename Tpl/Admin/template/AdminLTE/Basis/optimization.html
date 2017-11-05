@@ -1,0 +1,38 @@
+<include file="Index:header" />
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> 数据表优化 </h1>
+      <ol class="breadcrumb">
+        <li><a href="__APP__/TIFAWEB_DSWJCMS.html" class="goindex"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li> 基础配置</li>
+        <li class="active">数据表优化</li>
+      </ol>
+    </section>
+<!--主体-->
+    <!-- Main content -->
+  <section class="content">
+  <form method="post">
+    <div class="box">
+    <div class="box-body">
+    <table class="table table-bordered">
+     <input name="id" type="hidden" value="{$ed.id}" />
+       <tbody>
+          <tr>
+            <td style="width:200px;">优化方式：</td>
+            <td class="form-group">
+                <label><input type="radio" name="oid" class="minimal" value="1" checked/> 全部优化</label>
+            </td>
+          </tr>
+        </tbody>
+     </table>
+    </div>
+    </div>
+    <div class="row">
+     <button class="btn btn-primary pull-right" style="margin-right: 15px;"  type="submit">
+                  开始优化
+              </button>
+    </div>
+    </form>
+    
+  </section>
+<include file="Index:footer" />

@@ -1,0 +1,45 @@
+<include file="Index:header" />
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> 跳转 </h1>
+      <ol class="breadcrumb">
+        <li><a href="__APP__/TIFAWEB_DSWJCMS.html"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li class="active">跳转页</li>
+      </ol>
+    </section>
+<section class="content">
+  <div class="error-page" style="padding-top:100px;">
+    
+    <div class="error-content">
+      <h3> 
+      <present name="message">
+      	<i class="fa fa-check text-green"></i>
+            <?php echo($message); ?>
+            <else/>
+            <i class="fa fa-warning text-yellow"></i>
+            <?php echo($error); ?>
+            </present>
+      </h3>
+      <p class="jump">
+            页面自动 <a id="href" href="<?php echo($jumpUrl); ?>">跳转</a> 等待时间： <b id="wait"><?php echo($waitSecond); ?></b>
+            </p>
+    </div>
+    <!-- /.error-content -->
+  </div>
+  <!-- /.error-page -->
+</section>
+
+<script type="text/javascript">
+(function(){
+var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+var interval = setInterval(function(){
+	var time = --wait.innerHTML;
+	if(time <= 0) {
+		location.href = href;
+		clearInterval(interval);
+	};
+}, 1000);
+})();
+</script>
+<!--底部  start-->
+<include file="Index:footer" />

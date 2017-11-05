@@ -1,0 +1,98 @@
+<include file="Index:header" />
+<style>
+.col-md-3{
+	padding-bottom: 10px;
+}
+</style>
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> 分配权限 </h1>
+      <ol class="breadcrumb">
+        <li><a href="__APP__/TIFAWEB_DSWJCMS.html" class="goindex"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li> 用户管理</li>
+        <li><a href="__APP__/TIFAWEB_DSWJCMS/User/userGroups.html"> 管理组管理</a></li>
+        <li class="active">分配权限</li>
+      </ol>
+    </section>
+<!--主体-->
+    <!-- Main content -->
+  <section class="content">
+  <form method="post"  action='__APP__/TIFAWEB_DSWJCMS/User/tfUpda'>
+          <input name="gid" id="gid" type="hidden" value="{$group['id']}" />
+        <input name="q" type="hidden" value="ag" />
+        <input name="u" type="hidden" value="__APP__/TIFAWEB_DSWJCMS/User/userGroups.html" />
+        <input name="sid" type="hidden" value="{$group['id']}" />
+        <input name="n" type="hidden" value="权限分配更新" />
+    <div class="box">
+    <div class="box-body">
+    <div class="callout callout-info">
+        <p>修改名称需要保存，其它点击后就生效，无需保存</p>
+    </div>
+    <table class="table table-bordered">
+       <tbody>
+		  <tr>
+            <td>
+                   名称：
+            </td>
+            <td>
+              <input name="title" type="text" class="form-control" placeholder="名称" value="{$group['title']}">
+            </td>
+          </tr>
+        </tbody>
+     </table>
+     <div class="row" id="addRule">
+         <volist id="vo" name="rule">
+             <if condition="$vo['cla'] eq 'y' ">
+               <div class="col-md-3 admin_groups"><div class='btn btn-block btn-success admi_groups' onclick="setCompetence(this)"  title="{$vo.id}">{$vo.name}</div></div>
+             <else />
+               <div class="col-md-3 admin_groups"> <div class='btn btn-block btn-default admi_groups' onclick="setCompetence(this)"  title="{$vo.id}">{$vo.name}</div></div>
+             </if>
+         </volist>
+      </div>
+    </div>
+    </div>
+    <div class="row">
+     <button class="btn btn-primary pull-right" style="margin-right: 15px;"  type="submit">
+                  保存
+      </button>
+    </div>
+    </form>
+    
+  </section>
+<include file="Index:footer" />
+<script>
+
+   function setCompetence(dom){
+	   var cla = $(dom).attr("class");
+	   var id = $(dom).attr("title");
+	   var mdata = {};
+	   if(cla.indexOf("btn-success")>-1){
+		   mdata['action']="Cancel";
+	   }else{
+		  mdata['action']="Authorize";
+	   }
+	   mdata['id']=id;
+	   mdata['gid'] = $("#gid").val();
+       var url = "{:U('Api/Ajax/setCompetence')}";
+		  $.ajax({			
+			  type:"POST",
+			  dataType: 'json',
+			  data:mdata,
+			  cache:false,
+			  async:false,
+			  url:url,
+			  success: function(dat){
+                 if(dat.status !="n"){
+					 if(cla.indexOf("btn-success")>-1){
+						$(dom).removeClass("btn-success");
+						$(dom).addClass("btn-default");
+					 }else{
+						 $(dom).removeClass("btn-default");
+						$(dom).addClass("btn-success");
+					 }
+				 }
+
+			  }
+		 });
+   }
+</script>

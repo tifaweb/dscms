@@ -1,0 +1,94 @@
+<include file="Index:header" />
+<style type="text/css">
+.cla1{ font-weight:600; font-size:14px;}
+.cla2{ font-weight:500; font-size:12px; margin-left:5px;}
+.cla3{ font-weight:500; font-size:10px; margin-left:10px;}
+</style>
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> 文章管理 </h1>
+      <ol class="breadcrumb">
+        <li><a href="__APP__/TIFAWEB_DSWJCMS.html" class="goindex"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li> 文章管理</li>
+        <li class="active">文章管理</li>
+      </ol>
+    </section>
+<!--主体-->
+    <!-- Main content -->
+  <section class="content">
+    <div class="box">
+    <div class="box-header">
+     <div class="box-title">
+     
+     <select id="catid" name="catid" onchange="var id=$(this).val();toSearch(id)" class="form-control">
+        <option id="o_0"  value="0"  class="cla0" url="__APP__/TIFAWEB_DSWJCMS/Site/articleList.html" onclick="toSearch(this)">全部</option>
+           <volist name="site" id="vo">
+           
+               <if condition="$vo['order'] eq 1 ">
+               <option id="o_{$vo.id}" value="{$vo.id}"  class="cla{$vo.order}" url="__APP__/TIFAWEB_DSWJCMS/Site/articleList/id/{$vo.id}.html">{$vo.title}</option>
+               <elseif condition="$vo['order'] eq 2 " />
+                 <option id="o_{$vo.id}" value="{$vo.id}"  class="cla{$vo.order}" url="__APP__/TIFAWEB_DSWJCMS/Site/articleList/id/{$vo.id}.html">├ {$vo.title}</option>
+                <elseif condition="$vo['order'] eq 3 " /> 
+                <option id="o_{$vo.id}" value="{$vo.id}"  class="cla{$vo.order}" url="__APP__/TIFAWEB_DSWJCMS/Site/articleList/id/{$vo.id}.html">│├  {$vo.title}</option>
+                </if>
+           
+           </volist>
+        </select>
+     </div>
+      <div class="box-tools">
+        <a href="__APP__/TIFAWEB_DSWJCMS/Site/addArticle.html">添加新文章</a>
+      </div>
+    </div>
+    <div class="box-body">
+    <table class="table table-bordered table-hover">
+    	<thead>
+              <tr>
+                <th>文章ID</th>
+                <th>文章名称</th>
+                <th>关键字</th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+			 <volist name="list" id="vo">
+              <tr>
+                <td>{$vo.id}</td>
+                <td>
+                <a href="__ROOT__/Site/article/id/{$vo.id}.html">
+
+                   {$vo.title}
+
+                </a>
+                </td>
+
+                <td>{$vo.keyword}</td>
+                <td>
+                <if condition="$vo.published eq 1">
+                发布
+                <else/>
+                未发布
+                </if>
+                </td>
+                <td>
+                   <a target="_blank" href="__ROOT__/Site/article/id/{$vo.id}.html" class="fa fa-map-o text-light-blue" title="查看文章"></a>&nbsp;&nbsp;
+                   <a href="__APP__/TIFAWEB_DSWJCMS/Site/editArticle/id/{$vo.id}.html"  class="fa fa-pencil text-light-blue" title="修改文章"></a>&nbsp;&nbsp;
+                   <a href="#" onclick="if(confirm('是否要删除？'))window.location.href='__APP__/TIFAWEB_DSWJCMS/Site/dellelist/id/{$vo.id}'"  class="fa fa-trash text-red" title="删除文章"></a>
+                </td>
+              </tr>
+            </volist>
+            </tbody>
+     </table>
+     <div class="box-footer">
+     <ul class="pagination pagination-sm no-margin pull-right">{$Page}</ul>
+     </div>
+    </div>
+    </div>
+  </section>
+<include file="Index:footer" />
+<script>
+ function toSearch(dom){
+	  var url = $("#o_"+dom).attr("url");
+	  window.location = url;
+  }
+</script>

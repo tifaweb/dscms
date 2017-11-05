@@ -1,0 +1,199 @@
+<include file="header" />
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> 首页 </h1>
+      <ol class="breadcrumb">
+        <li class="active" id="onele">首页</li>
+      </ol>
+    </section>
+    
+<!--主体-->
+    <!-- Main content -->
+    <section class="content">
+    <if condition="$install eq 1">
+    <!--安全提示-->
+    <div class="callout callout-danger">
+        <h4>不安全因素</h4>
+        
+        <p>您的安装程序还未删除，建议直接删除，安装程序存在不安全因素。</p>
+        <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+            根目录/install.php和根目录/Install目录
+        </p>
+    </div>
+    <!--安全提示 end-->
+    </if>
+    <!-- Info boxes -->
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box"> <span class="info-box-icon bg-aqua"><i class="fa fa-users"></i></span>
+          <div class="info-box-content"> <span class="info-box-text">会员总数</span> <span class="info-box-number">{$stat.metotal}</span> </div>
+          <!-- /.info-box-content --> 
+        </div>
+        <!-- /.info-box --> 
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box"> <span class="info-box-icon bg-red"><i class="fa fa-users"></i></span>
+          <div class="info-box-content"> <span class="info-box-text">本月会员数</span> <span class="info-box-number">{$stat.menow}</span> </div>
+          <!-- /.info-box-content --> 
+        </div>
+        <!-- /.info-box --> 
+      </div>
+      <!-- /.col --> 
+      
+      <!-- fix for small devices only -->
+      <div class="clearfix visible-sm-block"></div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box"> <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
+          <div class="info-box-content"> <span class="info-box-text">本周会员数</span> <span class="info-box-number">{$stat.meweeks}</span> </div>
+          <!-- /.info-box-content --> 
+        </div>
+        <!-- /.info-box --> 
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box"> <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
+          <div class="info-box-content"> <span class="info-box-text">今日会员数</span> <span class="info-box-number">{$stat.memonth}</span> </div>
+          <!-- /.info-box-content --> 
+        </div>
+        <!-- /.info-box --> 
+      </div>
+      <!-- /.col --> 
+    </div>
+    <!--服务器信息-->
+    <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">服务器信息</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+              <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+              <i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-sm-6">
+                <dl class="dl-horizontal">
+                    <dt>环境：</dt><dd><?php echo php_sapi_name();?></dd>
+                    <dt>PHP版本：</dt><dd><?php echo PHP_VERSION;?></dd>
+                    <dt>Zend版本：</dt><dd><?php echo Zend_Version();?></dd>
+                    <dt>PHP安装路径：</dt><dd><?php echo DEFAULT_INCLUDE_PATH;?></dd>
+                    <dt>mysql版本：</dt><dd><?php echo mysql_get_server_info();;?></dd>  
+                </dl>
+            </div>
+            <div class="col-sm-6">
+                <dl class="dl-horizontal">
+                    <dt>系统类型：</dt><dd><?php echo php_uname('s');?></dd>
+                    <dt>系统版本号：</dt><dd><?php echo php_uname('r');?></dd>
+                    <dt>服务器IP：</dt><dd><?php echo GetHostByName($_SERVER['SERVER_NAME']);?></dd>
+                    <dt>服务器解译引擎：</dt><dd><?php echo $_SERVER['SERVER_SOFTWARE'];?></dd>
+                    <dt>服务器语言：</dt><dd><?php echo $_SERVER['HTTP_ACCEPT_LANGUAGE'];?></dd>
+                </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!--服务器信息 end-->
+    <!--环境切换-->
+    <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">环境切换</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+              <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+              <i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+          <table class="table">
+            <tbody>
+                <tr>
+                <td style="width:200px;">开发环境</td>
+                <td style="width:200px;">
+                <label><input type="radio" name="validation" value="1" class="minimal" <eq name="Think.const.APP_DEBUG" value="1">checked</eq>/>测试环境</label>
+                <label><input type="radio" name="validation" value="0" class="minimal" <neq name="Think.const.APP_DEBUG" value="1">checked</neq>/>正式环境</label>
+                </td>
+                <td style="width:600px;">
+                测试环境下不会对模板进行缓存，更适合技术人员进行调试；正式环境下，将对模板和一些数据进行缓存处理，修改的内容有可能不会马上更新，如需要调试，请切换到测试环境，然后刷新下页面。
+                </td>
+              </tr>
+            </tbody>
+            
+            </table>
+        </div>
+      </div>
+    <!--环境切换 end-->
+    
+    <!--参考资料-->
+    <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">参考资料</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+              <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+              <i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            	<div class="col-sm-6">
+                    <dl class="dl-horizontal">
+                        <dt>官方网站：</dt><dd><a target="_blank" href="https://www.dswjcms.com/">https://www.dswjcms.com/</a></dd>
+                        <dt>插件模板市场：</dt><dd><a target="_blank" href="https://www.dswjcms.com/Plugin.html">https://www.dswjcms.com/Plugin.html</a></dd>
+                        <dt>工单支持：</dt><dd><a target="_blank" href="https://www.dswjcms.com/Manage.html">https://www.dswjcms.com/Manage.html</a></dd>
+                        <dt>售前支持：</dt><dd>安装问题都可以通过官方找到解决方案，推荐使用工单系统进行问题反馈和咨询</dd>
+                        
+                    </dl>
+                </div>
+                <div class="col-sm-6">
+                    <dl class="dl-horizontal">
+                    	<dt>官方论坛：</dt><dd><a target="_blank" href="https://www.dswjcms.com/bbs">https://www.dswjcms.com/bbs</a></dd>
+                        <dt>在线手册：</dt><dd><a target="_blank" href="https://www.dswjcms.com/Manual.html">https://www.dswjcms.com/Manual.html</a></dd>
+                        <dt>一元商业授权：</dt><dd><a target="_blank" href="https://www.dswjcms.com/Index/sales.html">https://www.dswjcms.com/Index/sales.html</a></dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-12">
+                    项目运营中发现任何问题，都可通过官方提供的渠道寻求免费帮助<br/><span class="red">版本号以0.开头的版本可不购买商业授权，其它版本想要对外发布，都需要进行商业授权</span>
+                </div>
+            </div>
+        </div>
+      </div>
+    <!--参考资料 end-->
+  </section>
+  
+<!--主体 end-->
+<include file="footer" />
+<script>
+$("input:radio[name='validation']").on('ifChecked', function(event){
+	var id=$(this).val();
+	if(id==1){
+		ids=0;
+	}else{
+		ids=1;
+	}
+	contextSwitching(ids);
+});
+function contextSwitching(id){
+	$.ajax({
+		type: "POST",
+		url: "__APP__/TIFAWEB_DSWJCMS/Index/contextSwitching.html",
+		data:{id:id},
+		success: function(msg){
+			if(msg.status==1){
+				alert(msg.info);
+				window.location.href='__APP__/TIFAWEB_DSWJCMS/Index/index.html';
+			}else{
+				alert(msg.info);
+			}
+		}
+	});
+}
+</script>

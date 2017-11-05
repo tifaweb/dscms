@@ -1,0 +1,93 @@
+<include file="header" />
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> 后台模板 </h1>
+      <ol class="breadcrumb">
+        <li><a href="__APP__/TIFAWEB_DSWJCMS.html" class="goindex"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li>系统配置</li>
+        <li class="active">后台模板</li>
+      </ol>
+    </section>
+<!--主体-->
+    <!-- Main content -->
+  <section class="content">
+    <div class="box">
+    <div class="box-header">
+              <h3 class="box-title">共<span class="red">{$num}</span>套模板</h3>
+              <div class="box-tools">
+    			<a href="javascript:void(0)" onclick="colourRefresh()">刷新</a>
+              </div>
+            </div>
+    <div class="box-body">
+    	<ul class="mailbox-attachments clearfix" id="colour_switch">
+            <volist name="list" id="vo">
+            <li  onclick="setDefault('{$vo.3}');">
+              <span class="mailbox-attachment-icon has-img"><img src="/Tpl/Admin/template/{$vo.3}/direct.png" ></span>
+
+              <div class="mailbox-attachment-info">
+                <h3>{$vo.0}</h3>
+                <p>{$vo.1}</p>
+                    <span class="mailbox-attachment-size">
+                      {$vo.2}
+                      <if condition="$vo[3] eq $dirname">
+                      <a href="#" class="btn btn-default btn-xs pull-right">默认模板</a>
+                      </if>
+                    </span>
+              </div>
+            </li>
+            </volist>
+    	</ul>
+     </div>
+    </div>
+  </section>
+<include file="footer" />
+<script>
+/**
+ * @点击刷新
+ *
+ **/
+function colourRefresh(){
+	var nr='';
+	$.ajax({
+	   type: "POST",
+	   url: '__APP__/TIFAWEB_DSWJCMS/Index/admcolourRefresh',
+	   async: false,
+	   data:{"limit":1},
+	   success: function(msg){
+			$('.red').html(msg.info.num);
+			$.each(msg.info.dir, function(i,val){
+				nr+='<li onclick="setDefault(\''+val[3]+'\');"><span class="mailbox-attachment-icon has-img" ><img src="/Tpl/Admin/template/'+val[3]+'/direct.png"></span><div class="mailbox-attachment-info"><h3>'+val[0]+'</h3><p>'+val[1]+'</p><span class="mailbox-attachment-size">'+val[2];
+				if(val[3]==msg.info.dirname){
+					nr+='<a href="#" class="btn btn-default btn-xs pull-right">默认模板</a>';
+				}
+				nr+='</span></div></li>';
+			});
+			$('#colour_switch').html(nr);
+	   }
+	});
+}
+/**
+ * @设为默认
+ *
+ **/
+function setDefault(dir){
+	var nr='';
+	$.ajax({
+	   type: "POST",
+	   url: '__APP__/TIFAWEB_DSWJCMS/Index/admsetDefault',
+	   async: false,
+	   data:{"dir":dir},
+	   success: function(msg){
+			$('.red').html(msg.info.num);
+			$.each(msg.info.dir, function(i,val){
+				nr+='<li><span class="mailbox-attachment-icon has-img" onclick="setDefault(\''+val[3]+'\');"><img src="/Tpl/Admin/template/'+val[3]+'/direct.png"></span><div class="mailbox-attachment-info"><h3>'+val[0]+'</h3><p>'+val[1]+'</p><span class="mailbox-attachment-size">'+val[2];
+				if(val[3]==msg.info.dirname){
+					nr+='<a href="#" class="btn btn-default btn-xs pull-right">默认模板</a>';
+				}
+				nr+='</span></div></li>';
+			});
+			$('#colour_switch').html(nr);
+	   }
+	});
+}
+</script>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>后台管理系统</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<!-- Bootstrap 3.3.7 -->
+	<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/bootstrap.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/font-awesome.min.css">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/ionicons.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/AdminLTE.min.css">
+	<!-- iCheck -->
+	<link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/blue.css">
+<!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="/Tpl/Admin/template/AdminLTE/Public/css/all.css">
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="/Tpl/Admin/template/AdminLTE/Public/js/html5shiv.min.js"></script>
+	<script src="/Tpl/Admin/template/AdminLTE/Public/js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body class="hold-transition lockscreen">
+<!-- Automatic element centering -->
+<div class="lockscreen-wrapper">
+  <div class="lockscreen-logo">
+    <b>后台管理系统</b>
+  </div>
+  <!-- User name -->
+  <div class="lockscreen-name">离线通知</div>
+  <!-- START LOCK SCREEN ITEM -->
+  <div class="lockscreen-item">
+    <!-- lockscreen image -->
+    <div class="lockscreen-image">
+      <if condition="$Think.session.lockscreen_portraittype eq 1">
+      <img src="/Tpl/Admin/template/AdminLTE/Public/{$Think.session.lockscreen_portrait}" alt="{$Think.session.lockscreen_portrait}"> 
+      <elseif condition="$Think.session.lockscreen_portrait neq '' and $Think.session.lockscreen_portraittype neq 1"/>
+      <img src="/Public/uploadify/uploads/adminportrait/{$Think.session.lockscreen_portrait}" alt="{$Think.session.admin_portrait}">
+      <else/>
+      <img src="/Tpl/Admin/template/AdminLTE/Public/img/avatar.png" alt="avatar"> 
+      </if>
+      
+    </div>
+    <!-- /.lockscreen-image -->
+
+    <!-- lockscreen credentials (contains the form) -->
+    <form class="lockscreen-credentials"  method="post">
+      <div class="input-group">
+        <input type="password" class="form-control" name="password" placeholder="密码">
+
+        <div class="input-group-btn">
+          <button type="submit" class="btn" name="sub" value="1"><i class="fa fa-arrow-right text-muted"></i></button>
+        </div>
+      </div>
+    </form>
+    <!-- /.lockscreen credentials -->
+
+  </div>
+  <!-- /.lockscreen-item -->
+  <if condition="$msgerror neq ''">
+  <div class="text-red text-center">{$msgerror}</div>
+  <else/>
+  <div class="help-block text-center">输入您的密码来重新登录</div>
+  </if>
+  <!--<div class="lockscreen-footer text-center">
+    Copyright &copy; 2014-2016 <b><a href="https://adminlte.io" class="text-black">Almsaeed Studio</a></b><br>
+    All rights reserved
+  </div>-->
+  <div class="lockscreen-footer text-center">
+    Copyright &copy; 2013-<php>echo date('Y');</php> <b><a href="https://www.dswjcms.com" class="text-black">Dswjcms</a></b><br>
+    All rights reserved
+  </div>
+</div>
+<!-- /.center -->
+
+<!-- jQuery 3 -->
+<script src="/Tpl/Admin/template/AdminLTE/Public/js/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/Tpl/Admin/template/AdminLTE/Public/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="/Tpl/Admin/template/AdminLTE/Public/js/icheck.min.js"></script>
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>
+<script language="JavaScript">
+	function changeVerify(){
+		var timenow = new Date().getTime();
+		document.getElementById('verifyImg').src='__APP__/Public/verify/'+timenow;
+	}
+</script>
+</body>
+</html>
